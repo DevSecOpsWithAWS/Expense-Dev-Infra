@@ -19,6 +19,13 @@ resource "aws_ssm_parameter" "private_subnet_id" {
 
 resource "aws_ssm_parameter" "database_subnet_id" {
   name  = "/${var.project_name}/${var.environment}/database_subnet_id"
-  type  = "String"
+  type  = "StringList"
   value = join(",",module.vpc.database_subnet_id)
+}
+
+
+resource "aws_ssm_parameter" "database_subnet_group_name" {
+  name  = "/${var.project_name}/${var.environment}/database_subnet_group_name"
+  type  = "String"
+  value = aws_db_subnet_group.expense.name
 }
